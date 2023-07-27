@@ -11,7 +11,7 @@ def previsao(loja,funcao,descricao,sexo,estadoCivil,nacionalidade,grauInstrucao,
         'FUNÇÃO': [funcao],
         'DESCRICAO': [descricao],
         'SEXO': [sexo],
-        'ESTADOCIVIL': [estadoCivil],
+        'DESCRIÇÃO ESTADO CIVIL': [estadoCivil],
         'NACIONALIDADE': [nacionalidade],
         'GRAUINSTRUCAO': [grauInstrucao],
         'N° DEPENDENTES': [dependentes],
@@ -21,7 +21,7 @@ def previsao(loja,funcao,descricao,sexo,estadoCivil,nacionalidade,grauInstrucao,
     # Formatando os dados para predição
     df_dados = pd.DataFrame(data)
     variaveis_categoricas = ['NOMEFANTASIA','FUNÇÃO','DESCRICAO',
-                            'SEXO','ESTADOCIVIL','NACIONALIDADE','GRAUINSTRUCAO']
+                            'SEXO','DESCRIÇÃO ESTADO CIVIL','NACIONALIDADE','GRAUINSTRUCAO']
     df_dados = pd.get_dummies(df_dados, columns=variaveis_categoricas) # One-hot-encoding
     df_vazio = pd.read_excel('colunas.xlsx')
     df_to_predict = pd.concat([df_vazio, df_dados], ignore_index=True).fillna(0)
@@ -67,10 +67,9 @@ if __name__ == "__main__":
     funcao = st.sidebar.selectbox(label="Função", options=['OPERADOR DE CAIXA (LOJA)']) #FUNÇÃO
     descricao = st.sidebar.selectbox(label="Descrição", options=['Frente de Loja']) #DESCRICAO
     sexo = st.sidebar.selectbox(label="Sexo", options=['','Feminino','Masculino']) #SEXO
-    estadoCivil = st.sidebar.selectbox(label="Estado civil", options=['','S','C','I','E','O','P','V','D']) #ESTADOCIVIL
-    nacionalidade = st.sidebar.selectbox(label="Nacionalidade", options=['10','026','062','089','092',
-                                                                        '175','185','195','21',
-                                                                        '22','226','277','357','43','45']) #NACIONALIDADE
+    estadoCivil = st.sidebar.selectbox(label="Estado civil", options=['','Casado','Desquitado','Divorciado','Separado',
+                                                                      'Solteiro','União Estável','Viúvo','Outros']) #ESTADOCIVIL
+    nacionalidade = st.sidebar.selectbox(label="Nacionalidade", options=['Brasileiro','Estrangeiro']) #NACIONALIDADE
     #estado = 'GO' #ESTADONATAL
     grauInstrucao = st.sidebar.selectbox(label="Grau de instrução", 
                                          options=['','Analfabeto','Até o 5º ano incompleto do ensino fundamental',
